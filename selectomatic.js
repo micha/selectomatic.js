@@ -3,8 +3,8 @@
   window.Selectomatic = function(engine) {
     var $, i, j, argv=[];
     
-    for (i=1, j=arguments.length; i<j; i++)
-      argv[i-1] = arguments[i];
+    for (i=0, j=arguments.length; i<j; i++)
+      argv[i] = arguments[i];
 
     $ = function(selector) {
       return new $.fn.init(selector);
@@ -24,7 +24,7 @@
                           
                     if ($.engine.isSelector(selector)) {
                       this.selector = selector;
-                      return this.setArray($.engine.init(this, selector));
+                      return this.setArray($.engine.init(selector, this));
                     } else {
                       if (selector instanceof $.fn.init)
                         return selector;
@@ -159,6 +159,8 @@
     };
 
     $.fn.init.prototype = $.fn;
+
+    $.argv = argv;
 
     jQuery.extend(true, $, engine);
 
