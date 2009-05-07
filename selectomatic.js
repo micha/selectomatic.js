@@ -19,6 +19,9 @@
                     this.selector = "";
                     this.method   = "init";
 
+                    if (!$.engine.isSelector||!$.engine.init||!$.engine.find)
+                      throw "Selector engine not installed.";
+                          
                     if ($.engine.isSelector(selector)) {
                       this.selector = selector;
                       return this.setArray($.engine.init(this, selector));
