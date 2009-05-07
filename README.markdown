@@ -9,12 +9,27 @@ How to Use
 Load the Scripts
 ----------------
 
+Let's assume that your selector engine (more about that later) is defined
+in a file called _engine.js_ and the engine object it defines is `Engine`.
+
 Load the scripts in your document head as follows:
 
-    <html>
-      <head>
-        <script type="text/javascript" src="jquery.js"></script>
-        <script type="text/javascript" src="selectomatic.js"></script>
-        <script type="text/javascript" src="your.selector.engine.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="selectomatic.js"></script>
+    <script type="text/javascript" src="your.selector.engine.js"></script>
 
-Okay so far?
+Then you can instntiate your `Selectomatic` like this:
+
+    Q = Selectomatic(new Engine());
+
+Now the `Q` object is a jQuery-like object, with all the awesome collections
+managment and chaining patterns. You can then do something like this with it:
+
+    Q("/Products[?price<12.50]")
+      .filter("[?name^='super']")
+      .each(function(elem, index) {
+          this.price++;
+        })
+      .put();
+
+If someone is interested hit me up and I'll put more docs here.
