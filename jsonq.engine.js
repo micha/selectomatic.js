@@ -31,28 +31,8 @@ Json("[?price<12.50]", function(data) {
  * 
  */
 
-    var _ajax_request = function(url, data, callback, method) {
-      var response, options, async;
-
-      async = !!callback;
-
-      options = {
-        type:     method,
-        data:     data,
-        url:      url,
-        dataType: (async ? "json" : "text"),
-        success:  callback,
-        async:    async
-      };
-
-      response = jQuery.ajax(options);
-
-      return (async ? response : eval("("+response.responseText+")"));
-    };
-
     // Define the static object.
-    window.JSONQueryEngine = function(url) {
-      this.url = url;
+    window.JSONQueryEngine = function() {
     };
 
     // Add the instance methods and properties.
