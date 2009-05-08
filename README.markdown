@@ -85,10 +85,17 @@ This is a query engine for selectomatic.js.
 Singleton Methods
 -----------------
 
+* *<constructor>(_object_):* Constructs a new instance and sets its
+  collection to _object_. This "wraps" _object_ in a selectomatic object,
+  you could say.
+
 * *json(_object_):* Returns a JSON string representation of the object.
 
 Instance Methods
 ----------------
+
+* *find(_query_):* Selects from the current collection objects satisfying
+  the _query_.
 
 * *pick(_array_, _invert_):* Picks the properties specified in _array_ from
   each element in the selection, deleting all other properties. Basically,
