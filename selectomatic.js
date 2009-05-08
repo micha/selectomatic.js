@@ -46,7 +46,7 @@ A(query1).filter(query2).each(function(i, elem) { do_something() });
                       this.selector = selector;
                       this.method   = "init";
                       return this.setArray(
-                          $.engine.init.apply($, arguments));
+                          $.engine.init.apply(this, arguments));
                     } else {
                       if (selector instanceof $.fn.init)
                         return selector;

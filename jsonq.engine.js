@@ -56,8 +56,9 @@ Json("[?price<12.50]", function(data) {
         // from the initial call to the singleton. Additionally, the 'this'
         // object is set to the new instance object.
 
-        init: function() {
-          throw "Can't instantiate without initial JSON data.";
+        init: function(jsonstring) {
+          var ret = window['eval']("("+jsonstring+")");
+          return this.singleton.isArray(ret) ? ret : [ ret ];
         },
 
         // This is called to manipulate the existing set of elements.
@@ -91,7 +92,7 @@ Json("[?price<12.50]", function(data) {
               return ret;
             }).get(),
             "pick",
-            fields
+            [fields, !!inv]
           );
         },
         
