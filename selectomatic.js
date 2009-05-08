@@ -1,30 +1,52 @@
+/*
+ * Copyright (c) 2009 Micha Niskin
+ * Dual licensed under the MIT and GPL licenses.
+ * http://github.com/micha/selectomatic.js/
+ *
+ * Brutally ripped from the jQuery JavaScript Library v1.3.2 
+ * http://jquery.com/
+ *
+
+
+
+Usage:
+
+// First get a global reference to your new singleton object.
+window.A = Selectomatic(new SelectorEngine(arg1, arg2));
+
+// Then you have a jQuery-like object to work with:
+A(query1).filter(query2).each(function(i, elem) { do_something() });
+
+
+
+ *
+ * Thanks to everyone involved.
+ *
+ */
+
 (function() {
 
   window.Selectomatic = function(engine) {
-    var $, i, j, argv=[];
+    var $;
     
-    for (i=0, j=arguments.length; i<j; i++)
-      argv[i] = arguments[i];
-
     $ = function(selector) {
-      return new $.fn.init(selector);
+      return new $.fn.init(selector, $);
     };
 
     $.fn = $.prototype = {
 
-      init:       function(selector) {
-                    var elems = [];
-
-                    this.length   = 0;
-                    this.selector = "";
-                    this.method   = "init";
-
-                    if (!$.engine.isSelector||!$.engine.init||!$.engine.find)
+      init:       function(selector, singleton) {
+                    if (!$.engine||!$.engine.isSelector||!$.engine.init||
+                        !$.engine.find)
                       throw "Selector engine not installed.";
                           
+                    this.singleton = singleton;
+
                     if ($.engine.isSelector(selector)) {
                       this.selector = selector;
-                      return this.setArray($.engine.init(selector, this));
+                      this.method   = "init";
+                      return this.setArray(
+                          $.engine.init.apply($, arguments));
                     } else {
                       if (selector instanceof $.fn.init)
                         return selector;
@@ -154,13 +176,11 @@
                     this.length = 0;
                     Array.prototype.push.apply(this, elems);
                     return this;
-                  },
+                  }
 
     };
 
     $.fn.init.prototype = $.fn;
-
-    $.argv = argv;
 
     jQuery.extend(true, $, engine);
 
@@ -176,7 +196,7 @@
       isArray:    jQuery.isArray,
       isFunction: jQuery.isFunction,
       trim:       jQuery.trim,
-      param:      jQuery.param,
+      param:      jQuery.param
     });
 
     return $;
