@@ -90,8 +90,6 @@ A(query1).filter(query2).each(function(i, elem) { do_something() });
                     );
                   },
 
-      json:       function(subject) { },
-
       filter:     function(selector) {
                     return this.pushStack(
                       $.isFunction(selector) &&
