@@ -27,7 +27,7 @@ A(query1).filter(query2).each(function(i, elem) { do_something() });
 (function() {
 
   window.Selectomatic = function(engine) {
-    var $;
+    var $, i;
     
     $ = function(selector) {
       return new $.fn.init(selector, $);
@@ -180,7 +180,8 @@ A(query1).filter(query2).each(function(i, elem) { do_something() });
 
     $.fn.init.prototype = $.fn;
 
-    jQuery.extend(true, $, engine);
+    for (i=0; i<arguments.length; i++)
+      jQuery.extend(true, $, arguments[i]);
 
     jQuery.extend(true, $, {
       each:       jQuery.each,
